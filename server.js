@@ -2,7 +2,7 @@ const express = require('express');
 
 const app = express();
 
-const PORT = 3030;
+const PORT = 3000;
 
 const friends = [
   {
@@ -18,6 +18,13 @@ const friends = [
     name: 'Albert Einstein',
   }
 ];
+
+app.use((req, res, next) => {
+  const start = Date.now();
+  next();
+  const delta = Date.now() - start;
+  console.log(`${delta}ms: ${req.method} ${req.url}`);
+})
 
 app.get('/friends', (req, res) => {
   res.json(friends)
